@@ -17,5 +17,29 @@ export type User = {
 };
 
 export function describeUser(user: User): string {
-    throw new Error("не реализовано");
+    let text: string = "Пользователя зовут: " + user.name;
+
+    if (user.age === undefined){
+    } else {
+        text += `и ему ${user.age}.`;
+    }
+
+    let hob: string = "";
+    if (user.hobbies === undefined){
+    } else {
+        text += " У него есть хобби: ";
+        for (hob in user.hobbies){
+            text += `${user.hobbies[hob]}, `;
+       }
+    }
+
+    if ('email' in user.contact){
+        text += "с ним можно связаться с помощью ";
+        text += `почты ${user.contact.email}.`;
+    } else if ('phone' in user.contact)
+    {
+        text += "с ним можно связаться с помощью ";
+        text += `телефона ${user.contact.phone}.`;
+    }
+    return text;
 }

@@ -30,5 +30,18 @@ export const defaultRules: Rules = {
 };
 
 export function validateForm(data: IFormData, rules: Rules): Errors {
-    throw new Error("не реализовано");
+    const errors: Errors = {};
+
+    function check<K extends keyof IFormData>(key: K): void {
+        if (!rules[key](data[key])) {
+            errors[key] = `Поле "${key}" заполнено неверно`;
+        }
+    }
+
+    const fields: (keyof IFormData)[] = ['username', 'email', 'age'];
+    for (const field of fields) {
+        check(field);
+    }
+
+    return errors;
 }
